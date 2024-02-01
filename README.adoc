@@ -1,0 +1,8 @@
+= Space Communication Bus "SCBus" Controller
+
+[TIP]
+This IP core is under development.
+
+
+SC Bus Controller (SCBC) is the controller core of "Space Communication Bus" proposed by Space Cubics.
+Space Communication Bus is a USB-based communication bus targeting spacecraft.
