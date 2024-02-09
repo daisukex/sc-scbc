@@ -35,6 +35,15 @@ typedef enum logic [1:0] {
              ccdRegRead  = 2'b11     // Reg Read
 } ulpiCCD_e;
 
+// ULPI Transmit Command pack for register access
+typedef struct packed {
+  ulpiCCD_e ccd;                     // Command Code Data
+  ulpiRegMap_e  cpd;                 // Command Payload Data
+  logic [7:0] ead;                   // Extended Address
+  logic [7:0] txd;                   // Transmit (Write) Data
+  logic [7:0] rxd;                   // Receive (Read) Data
+} ulpiRegDataPack_s;
+
 // ----
 // Receive Command Byte (RX CMD): ULPI spec 3.8.1.2
 // --------------------------------------------------
