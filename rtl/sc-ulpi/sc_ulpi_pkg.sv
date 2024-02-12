@@ -24,6 +24,50 @@
 package sc_ulpi_pkg;
 
 // ----
+// ULPI Register: ULPI spec 4
+// --------------------------------------------------
+
+// Register Map: ULPI spec 4.1
+//----------------------------
+// Address table
+typedef enum logic [5:0] {
+             vendorIdLow      = 6'h00,
+             vendorIdHigh     = 6'h01,
+             productIdLow     = 6'h02,
+             productIdHigh    = 6'h03,
+             funcControl      = 6'h04,
+             interfaceControl = 6'h07,
+             otgControl       = 6'h0A,
+             interruptStatus  = 6'h13,
+             interruptLatch   = 6'h14,
+             debug            = 6'h15,
+             scratchRegister  = 6'h16,
+             cpdExtend        = 6'h2F
+} ulpiRegMap_e;
+
+// OTG Control Register
+typedef struct packed {
+  logic UseExternalVbusIndeicator;
+  logic DrvVbusExternal;
+  logic DrvVbus;
+  logic ChrgVbus;
+  logic DischrgVbus;
+  logic DmPulldown;
+  logic DpPulldown;
+  logic IdPullup;
+} otgControl_s;
+
+// Function Control Register
+typedef struct packed {
+  logic reserved;
+  logic suspendM;
+  logic reset;
+  logic opMode;
+  logic termSelect;
+  logic [1:0] xcvrSelect;
+} funcControl_s;
+
+// ----
 // Transmit Command Byte (TX CMD): ULPI spec 3.8.1.1
 // --------------------------------------------------
 
@@ -123,50 +167,6 @@ const utmiSignal_s utmiXcvrSigs [0:25] = '{
   otgPeriHsFsResume: '{xcvrSelect: 2'b01, termSelect: 1'b1, opMode: 2'b10},
   otgPeriTestJTestK: '{xcvrSelect: 2'b00, termSelect: 1'b0, opMode: 2'b10}
 };
-
-// ----
-// ULPI Register: ULPI spec 4
-// --------------------------------------------------
-
-// Register Map: ULPI spec 4.1
-//----------------------------
-// Address table
-typedef enum logic [5:0] {
-             vendorIdLow      = 6'h00,
-             vendorIdHigh     = 6'h01,
-             productIdLow     = 6'h02,
-             productIdHigh    = 6'h03,
-             funcControl      = 6'h04,
-             interfaceControl = 6'h07,
-             otgControl       = 6'h0A,
-             interruptStatus  = 6'h13,
-             interruptLatch   = 6'h14,
-             debug            = 6'h15,
-             scratchRegister  = 6'h16,
-             cpdExtend        = 6'h2F
-} ulpiRegMap_e;
-
-// OTG Control Register
-typedef struct packed {
-  logic UseExternalVbusIndeicator;
-  logic DrvVbusExternal;
-  logic DrvVbus;
-  logic ChrgVbus;
-  logic DischrgVbus;
-  logic DmPulldown;
-  logic DpPulldown;
-  logic IdPullup;
-} otgControl_s;
-
-// Function Control Register
-typedef struct packed {
-  logic reserved;
-  logic suspendM;
-  logic reset;
-  logic opMode;
-  logic termSelect;
-  logic [1:0] xcvrSelect;
-} funcControl_s;
 
 endpackage: sc_ulpi_pkg
 `endif
