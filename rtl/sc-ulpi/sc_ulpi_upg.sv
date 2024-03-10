@@ -52,7 +52,7 @@ typedef struct packed {
   logic dcrc;
 } pktFormat_t;
 
-pktFormat_t pktFormat[logic [3:0]];
+pktFormat_t pktFormat[0:15];
 always_comb begin
   pktFormat[tokenOut]       = '{addr: 1, endp: 1, fmnum: 0, data: 0, tcrc: 1, dcrc: 0};
   pktFormat[tokenIn]        = '{addr: 1, endp: 1, fmnum: 0, data: 0, tcrc: 1, dcrc: 0};
