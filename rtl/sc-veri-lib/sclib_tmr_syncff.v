@@ -13,14 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //-----------------------------------------------------------------------------
-// Space Cubics Standard IP Core
-//  Space Communication Bus Controller
-//  Module: Slave Signal Synchronizer (sc_scbc_sss)
+// Space Cubics Verilog Library
+//  Module: Triple modular redundancy synchronized Flip-Flop
 //-----------------------------------------------------------------------------
 
 module sclib_tmr_syncff # (
-  parameter SYNCC = 2,   // Synchronizer F/F Count
-  parameter SET1RST0 = 1'b0 // SetReset Value
+  parameter SYNCC = 2,      // Number of Synchronizer F/F
+  parameter SET1RST0 = 1'b0 // Initialize value
 ) (
   input DIN,
   input CLK,
@@ -28,20 +27,20 @@ module sclib_tmr_syncff # (
   output reg QOUT
 );
 
-(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_0;
-(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_1;
-(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_2;
+(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_ff0;
+(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_ff1;
+(* dont_touch = "yes" *) reg [SYNCC-1:0] sync_ff2;
 
 always @ (posedge CLK or negedge SRB) begin
   if (!SRB) begin
-    sync_0 <= {SYNCC{SET1RST0}};
-    sync_1 <= {SYNCC{SET1RST0}};
-    sync_2 <= {SYNCC{SET1RST0}};
+    sync_ff0 <= {SYNCC{SET1RST0}};
+    sync_ff1 <= {SYNCC{SET1RST0}};
+    sync_ff2 <= {SYNCC{SET1RST0}};
   end
   else begin
-    sync_0 <= {sync_0[SYNCC-2:0], DIN};
-    sync_1 <= {sync_1[SYNCC-2:0], DIN};
-    sync_2 <= {sync_2[SYNCC-2:0], DIN};
+    sync_ff0 <= {sync_0[SYNCC-2:0], DIN};
+    sync_ff1 <= {sync_1[SYNCC-2:0], DIN};
+    sync_ff2 <= {sync_2[SYNCC-2:0], DIN};
   end
 end
 
