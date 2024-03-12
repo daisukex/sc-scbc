@@ -132,9 +132,9 @@ typedef enum logic [4:0] {
 
 // Signal state
 typedef struct packed {
-  logic [1:0] xcvrSelect;
-  logic termSelect;
   logic [1:0] opMode;
+  logic termSelect;
+  logic [1:0] xcvrSelect;
 } utmiSignal_s;
 
 const utmiSignal_s utmiXcvrSigs [0:25] = '{
